@@ -54,7 +54,7 @@ public class ColorList {
     long end2 = System.nanoTime();
     
     System.out.println(average);
-    System.out.println("creation " + ((end - start) / 1_000_000d) + " ms");
-    System.out.println("average " + ((end2 - start2) / 1_000_000d) + " ms");
+    System.out.println("creation time " + ((end - start) / 1_000_000d) + " ms");
+    System.out.println("average time " + ((end2 - start2) / 1_000_000d) + " ms");
   }
 }

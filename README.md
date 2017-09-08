@@ -51,8 +51,8 @@ On my laptop (i7-5600U @ 2.6Gz x 4), using the test.jar, so with no value types,
 time mvt/valhalla/build/linux-x86_64-normal-server-release/jdk/bin/java \
      -cp test.jar fr.umlv.valuetypify.test.ColorList
 Color(2.2517998E7, 2.2517998E7, 2.2517998E7)
-creation 2886.933223 ms
-average 606.217409 ms
+creation time 2886.933223 ms
+average time 606.217409 ms
 
 real	0m4.839s
 user	0m11.101s
@@ -65,8 +65,8 @@ using the test-valuetypified.jar produced by the valuetypifier, it's faster.
 $ time mvt/valhalla/build/linux-x86_64-normal-server-release/jdk/bin/java -XX:+EnableMVT \
        -cp test-valuetypified.jar fr.umlv.valuetypify.test.ColorList
 Color(2.2517998E7, 2.2517998E7, 2.2517998E7)
-creation 1039.692931 ms
-average 70.152561 ms
+creation time 1039.692931 ms
+average time 70.152561 ms
 
 real	0m1.582s
 user	0m1.245s
