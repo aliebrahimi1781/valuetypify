@@ -19,7 +19,8 @@ sh build.sh
 ```
 
 ## why there is a jar (asm-debug-all-6.0_MVT.jar) in the source ?
-It's a version 6.0 of ASM patched to read/write the new opcodes defined by the Minimal Value Type project
+It's a version 6.0 of ASM patched to read/write the new opcodes defined by the Minimal Value Type project.
+The code is available in the branch [MINIMAL_VALUE_TYPE](https://gitlab.ow2.org/asm/asm/tree/MINIMAL_VALUE_TYPE) of ASM.
 
 ## what is the Minimal Value Type project ?
 see [https://wiki.openjdk.java.net/display/valhalla/Minimal+Value+Types](https://wiki.openjdk.java.net/display/valhalla/Minimal+Value+Types)
@@ -47,7 +48,8 @@ The test in the [main() of ColorList](https://github.com/forax/valuetypify/blob/
 
 On my laptop (i7-5600U @ 2.6Gz x 4), using the test.jar, so with no value types, it's not that fast 
 ```
-time mvt/valhalla/build/linux-x86_64-normal-server-release/jdk/bin/java -cp test.jar fr.umlv.valuetypify.test.ColorList
+time mvt/valhalla/build/linux-x86_64-normal-server-release/jdk/bin/java \
+     -cp test.jar fr.umlv.valuetypify.test.ColorList
 Color(2.2517998E7, 2.2517998E7, 2.2517998E7)
 creation 2886.933223 ms
 average 606.217409 ms
@@ -60,7 +62,8 @@ This test use the VM patched for the MVT (with the MVT disable), i've results in
 
 using the test-valuetypified.jar produced by the valuetypifier, it's faster.
 ```
-$ time mvt/valhalla/build/linux-x86_64-normal-server-release/jdk/bin/java -XX:+EnableMVT -cp test-valuetypified.jar fr.umlv.valuetypify.test.ColorList
+$ time mvt/valhalla/build/linux-x86_64-normal-server-release/jdk/bin/java -XX:+EnableMVT \
+       -cp test-valuetypified.jar fr.umlv.valuetypify.test.ColorList
 Color(2.2517998E7, 2.2517998E7, 2.2517998E7)
 creation 1039.692931 ms
 average 70.152561 ms
@@ -71,7 +74,7 @@ sys	0m0.766s
 
 ``` 
 
-If i test with less than 1 million of colors, the timings are the same (modulo the error margin).
+If i test with less than 1 million of colors, the timings are the same (modulo the error margin), i suppose it's because the JIT doesn't have the time to kick in.
 If i test with more than 50 millions of colors, the test that uses the value type fails because i've not enough memory to allocate a contiguous array of that size.
 
 
