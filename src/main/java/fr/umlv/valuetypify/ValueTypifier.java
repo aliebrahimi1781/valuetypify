@@ -53,7 +53,10 @@ import org.objectweb.asm.tree.analysis.Analyzer;
 import org.objectweb.asm.tree.analysis.AnalyzerException;
 import org.objectweb.asm.tree.analysis.BasicInterpreter;
 import org.objectweb.asm.tree.analysis.BasicValue;
+import org.objectweb.asm.util.Printer;
+import org.objectweb.asm.util.Textifier;
 import org.objectweb.asm.util.TraceClassVisitor;
+import org.objectweb.asm.util.TraceMethodVisitor;
 
 public class ValueTypifier {
   static final boolean REWRITE_VALUETYPE_ARRAY = true;
@@ -163,6 +166,11 @@ public class ValueTypifier {
           convertArgumentMaybe(parameterType, slot);
           slot += parameterType.getSize();
         }
+      }
+      
+      @Override
+      public void visitMaxs(int maxStack, int maxLocals) {
+        super.visitMaxs(maxStack, maxLocals);
       }
     });
   }
@@ -335,8 +343,8 @@ public class ValueTypifier {
                     return super.copyOperation(insn, value);
                   }
                   VarInsnNode varInsn = (VarInsnNode)insn;
-                  patch(insn, new Patch((mv, __) -> mv.visitVarInsn(VSTORE, varInsn.var), VALUE, value.getType()));
-                  return new VTValue(value.getType()).append(insn);
+                  patch(insn, new Patch((mv, __) -> mv.visitVarInsn(VSTORE, varInsn.var), NONE, null));
+                  return new VTValue(value.getType());
                 }
                 case ALOAD:
                   if (!isValueType(value)) {
@@ -434,7 +442,7 @@ public class ValueTypifier {
                   Type elementType = asElementOfAnArrayOfVCC(value1.getType());
                   if (elementType != null) {
                     if (REWRITE_VALUETYPE_ARRAY) {
-                      patch(insn, new Patch((mv, __) -> mv.visitInsn/*TypeInsn*/(VALOAD/*, asValueInternalName(elementType)*/), VALUE, elementType));
+                      patch(insn, new Patch((mv, __) -> mv.visitInsn(VALOAD), VALUE, elementType));
                     } else {
                       patch(insn, new Patch(DEFAULT_ACTION, OBJECT, elementType));
                     }
@@ -454,7 +462,7 @@ public class ValueTypifier {
                   if (isValueType(value3)) {
                     if (REWRITE_VALUETYPE_ARRAY) {
                       Type elementType = value3.getType();
-                      patch(insn, new Patch((mv, __) -> mv.visitInsn/*TypeInsn*/(VASTORE/*, asValueInternalName(elementType)*/), VALUE, elementType));
+                      patch(insn, new Patch((mv, __) -> mv.visitInsn(VASTORE), VALUE, elementType));
                     } else {
                       markBoxed(value3);
                     }
@@ -555,6 +563,12 @@ public class ValueTypifier {
               throw new UncheckedIOException(new IOException(e));
             }
             
+            //DEBUG
+            //TraceClassVisitor traceClassVisitor = new TraceClassVisitor(new PrintWriter(System.err));
+            //rewriteMethod(owner, this, patchMap,
+            //    traceClassVisitor.visitMethod(access, name, desc, signature, exceptions.toArray(new String[0])));
+            //traceClassVisitor.visitEnd();
+            
             rewriteMethod(owner, this, patchMap, methodWriter);
           }
 
@@ -566,8 +580,8 @@ public class ValueTypifier {
     byte[] code = writer.toByteArray();
     
     // DEBUG
-    //ClassReader reader2 = new ClassReader(code);
-    //reader2.accept(new TraceClassVisitor(new PrintWriter(System.err)), 0);
+    ClassReader reader2 = new ClassReader(code);
+    reader2.accept(new TraceClassVisitor(new PrintWriter(System.err)), 0);
     
     outputStream.write(code);
   }
