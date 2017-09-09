@@ -9,10 +9,14 @@ rm -fr target/output/
 # main
 echo "create valuetypifier jar ..."
 mkdir -p target/output/main
-$javac -d target/output/main -cp .:deps/asm-debug-all-6.0_MVT.jar -sourcepath src/main/java src/main/java/fr/umlv/valuetypify/*.java src/main/java/jvm/internal/value/*.java
+$javac -d target/output/main -cp .:deps/asm-6.0_MVT.jar:deps/asm-analysis-6.0_MVT.jar:deps/asm-commons-6.0_MVT.jar:deps/asm-tree-6.0_MVT.jar:deps/asm-util-6.0_MVT.jar -sourcepath src/main/java src/main/java/fr/umlv/valuetypify/*.java src/main/java/jvm/internal/value/*.java
 
 cd target/output/main
-$jar xfM ../../../deps/asm-debug-all-6.0_MVT.jar
+$jar xfM ../../../deps/asm-6.0_MVT.jar
+$jar xfM ../../../deps/asm-analysis-6.0_MVT.jar
+$jar xfM ../../../deps/asm-commons-6.0_MVT.jar
+$jar xfM ../../../deps/asm-tree-6.0_MVT.jar
+$jar xfM ../../../deps/asm-util-6.0_MVT.jar
 rm module-info.class
 rm META-INF/MANIFEST.MF
 rmdir META-INF
