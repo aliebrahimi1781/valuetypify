@@ -4,6 +4,8 @@
 export javac=$JAVA_HOME/bin/javac
 export jar=$JAVA_HOME/bin/jar
 
+rm -fr target/output/
+
 # main
 echo "create valuetypifier jar ..."
 mkdir -p target/output/main
