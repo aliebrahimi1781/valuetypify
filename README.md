@@ -18,8 +18,8 @@ run
 sh build.sh
 ```
 
-## why there is a jar (asm-debug-all-6.0_MVT.jar) in the source ?
-It's a version 6.0 of ASM patched to read/write the new opcodes defined by the Minimal Value Type project.
+## why there is bunch of jars in the source ?
+The valuetypifier uses an unrelased version of ASM, patched to read/write the new opcodes defined by the Minimal Value Type project.
 The code is available in the branch [MINIMAL_VALUE_TYPE](https://gitlab.ow2.org/asm/asm/tree/MINIMAL_VALUE_TYPE) of ASM.
 
 ## what is the Minimal Value Type project ?
@@ -40,7 +40,7 @@ several reasons:
 - it's just fun, i used to write backports, the valuetypifier is better, it's a 'forwardport' !
 
 ## can i use the valuetypifier in production ?
-yes, if you want to change of job.
+yes, if you want to loose your job.
 
 ## do you have preliminary results ?
 there is currently one tets that defines a value capable class named [Color](https://github.com/forax/valuetypify/blob/master/src/test/java/fr/umlv/valuetypify/test/Color.java) and a class ColorList that acts a list of Color.
