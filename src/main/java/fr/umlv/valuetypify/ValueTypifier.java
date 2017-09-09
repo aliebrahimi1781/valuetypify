@@ -580,8 +580,8 @@ public class ValueTypifier {
     byte[] code = writer.toByteArray();
     
     // DEBUG
-    ClassReader reader2 = new ClassReader(code);
-    reader2.accept(new TraceClassVisitor(new PrintWriter(System.err)), 0);
+    //ClassReader reader2 = new ClassReader(code);
+    //reader2.accept(new TraceClassVisitor(new PrintWriter(System.err)), 0);
     
     outputStream.write(code);
   }
