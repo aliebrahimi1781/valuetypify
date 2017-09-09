@@ -3,6 +3,10 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="deps/asm-debug-all-6.0_MVT.jar"/>
+	<classpathentry kind="lib" path="deps/asm-6.0_MVT.jar"/>
+	<classpathentry kind="lib" path="deps/asm-tree-6.0_MVT.jar"/>
+	<classpathentry kind="lib" path="deps/asm-analysis-6.0_MVT.jar"/>
+	<classpathentry kind="lib" path="deps/asm-util-6.0_MVT.jar"/>
+	<classpathentry kind="lib" path="deps/asm-commons-6.0_MVT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
